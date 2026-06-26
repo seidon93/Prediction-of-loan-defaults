@@ -1,0 +1,5 @@
+checking_account,Good Credit,Bad Credit,Default Rate (%)
+0 - 200 DM,164,105,39.03
+< 0 DM,139,135,49.27
+> 200 DM,49,14,22.22
+No Checking Account,348,46,11.68
