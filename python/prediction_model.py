@@ -189,3 +189,20 @@ feature_importance.to_csv(
 )
 
 print("Soubor feature_importance.csv byl uložen.")
+
+metrics = pd.DataFrame({
+    "Metric": [
+        "Accuracy",
+        "Precision",
+        "Recall",
+        "F1 Score"
+    ],
+    "Value": [
+        accuracy_score(y_test, predictions),
+        precision_score(y_test, predictions, pos_label=2),
+        recall_score(y_test, predictions, pos_label=2),
+        f1_score(y_test, predictions, pos_label=2)
+    ]
+})
+
+print(metrics)
