@@ -72,3 +72,28 @@ print("Accuracy:", accuracy)
 cm = confusion_matrix(y_test, predictions)
 
 print(cm)
+
+importance = pd.DataFrame({
+    "Feature": features,
+    "Importance": model.feature_importances_
+})
+
+importance = importance.sort_values(
+    by="Importance",
+    ascending=False
+)
+
+print(importance)
+
+
+df_model = df.copy()
+X = df_model.drop("loan_status", axis=1)
+
+y = df_model["loan_status"]
+X = pd.get_dummies(
+    X,
+    drop_first=True
+)
+print(X.head())
+print(X.shape)
+
