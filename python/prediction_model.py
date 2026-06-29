@@ -97,3 +97,45 @@ X = pd.get_dummies(
 print(X.head())
 print(X.shape)
 
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42,
+    stratify=y
+)
+
+print("Trénovací data:", X_train.shape)
+print("Testovací data:", X_test.shape)
+
+model = RandomForestClassifier(
+    n_estimators=500,
+    max_depth=15,
+    min_samples_split=5,
+    min_samples_leaf=2,
+    class_weight="balanced",
+    random_state=42
+)
+
+model.fit(X_train, y_train)
+predictions = model.predict(X_test)
+probabilities = model.predict_proba(X_test)
+
+from sklearn.metrics import (
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    confusion_matrix
+)
+
+print("\n===== MODEL RESULTS =====")
+
+print("Accuracy :", accuracy_score(y_test, predictions))
+print("Precision:", precision_score(y_test, predictions, pos_label=2))
+print("Recall   :", recall_score(y_test, predictions, pos_label=2))
+print("F1 Score :", f1_score(y_test, predictions, pos_label=2))
+
+print("\nConfusion Matrix")
+print(confusion_matrix(y_test, predictions))
