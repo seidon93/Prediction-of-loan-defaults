@@ -139,3 +139,53 @@ print("F1 Score :", f1_score(y_test, predictions, pos_label=2))
 
 print("\nConfusion Matrix")
 print(confusion_matrix(y_test, predictions))
+
+print(probabilities[:10])
+default_probability = probabilities[:, 1]
+print(default_probability[:10])
+
+results = pd.DataFrame({
+    "Actual": y_test.values,
+    "Predicted": predictions,
+    "Default_Probability": default_probability
+})
+
+print(results.head())
+
+results.to_csv(
+    os.path.join(
+        script_dir,
+        "..",
+        "data",
+        "cleaned",
+        "predictions.csv"
+    ),
+    index=False
+)
+
+print("Soubor predictions.csv byl uložen.")
+
+feature_importance = pd.DataFrame({
+    "Feature": X.columns,
+    "Importance": model.feature_importances_
+})
+
+feature_importance = feature_importance.sort_values(
+    by="Importance",
+    ascending=False
+)
+
+print(feature_importance.head(15))
+
+feature_importance.to_csv(
+    os.path.join(
+        script_dir,
+        "..",
+        "data",
+        "cleaned",
+        "feature_importance.csv"
+    ),
+    index=False
+)
+
+print("Soubor feature_importance.csv byl uložen.")
